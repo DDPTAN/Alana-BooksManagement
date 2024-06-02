@@ -6,6 +6,8 @@ import cors from "cors";
 // import db from "./database/sequelize/sequelize";
 import ApiBooks from "./routes/books.route";
 import ApiUsers from "./routes/users.route";
+import ApiBorrowings from "./routes/borrowings.route";
+import ApiTransactions from "./routes/transactions.route";
 import ApiAuth from "./routes/auth.route"
 
 dotenv.config();
@@ -28,6 +30,8 @@ class Server {
 
     this.app.use("/api/books", ApiBooks.routes());
     this.app.use("/api/users", ApiUsers.routes());
+    this.app.use("/api/borrowings", ApiBorrowings.routes());
+    this.app.use("/api/transactions", ApiTransactions.routes());
     this.app.use("/api", ApiAuth.routes());
   }
 
