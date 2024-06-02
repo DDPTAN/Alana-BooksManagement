@@ -14,7 +14,7 @@ function useDetail() {
     const getDataById = async (id: any) => {
         try {
             const response = await axios.get(
-                `http://localhost:4000/api/cars/${id}`,
+                `http://localhost:4000/api/books/${id}`,
                 {
                     headers: {
                         Authorization: localStorage.getItem('token'),

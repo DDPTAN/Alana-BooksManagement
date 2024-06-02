@@ -1,12 +1,12 @@
 import PrivateProvider from '../Providers/PrivateProvider';
 import Dashboard from '../../Layouts/Dashboard';
-import { CarListContainer } from '../../Components/Organism/Cars';
+import { BookListContainer } from '../../Components/Organism/Books';
 
 function List() {
     return (
         <PrivateProvider>
             <Dashboard>
-                <CarListContainer />
+                <BookListContainer />
             </Dashboard>
         </PrivateProvider>
     );

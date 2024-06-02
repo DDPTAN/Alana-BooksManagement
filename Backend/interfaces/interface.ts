@@ -54,7 +54,7 @@ export interface BookModel<T> {
   getBook: (id: string) => void;
   createBook: (params: T) => void;
   updateBook: (id: string, params: T) => void;
-  deleteBook: (id: string, params: T) => void;
+  deleteBook: (id: string) => void;
 }
 
 export interface BookController {

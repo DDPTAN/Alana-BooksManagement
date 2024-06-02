@@ -67,12 +67,9 @@ class Books implements BookModel<IBooks> {
     }
   }
 
-  async deleteBook(id: string, params: IBooks) {
+  async deleteBook(id: string) {
     try {
-      const result = await this.books("books")
-        .where("id", "=", id)
-        .update(params)
-        .returning("*");
+      const result = await this.books("books").where("id", "=", id).del();
       return result;
     } catch (error) {
       return error;

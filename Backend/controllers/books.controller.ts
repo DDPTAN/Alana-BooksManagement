@@ -116,11 +116,9 @@ class ControllerBooks implements BookController {
 
   async deleteBook(req: Request, res: Response) {
     const { id } = req.params;
-    const params: IBooks = {
-      status: "deleted",
-    };
+
     try {
-      const book = (await ServiceBooks.deleteBook(id, params).then((data) => {
+      const book = (await ServiceBooks.deleteBook(id).then((data) => {
         if (data) {
           res.status(200).json({
             message: "Success Delete Data!",

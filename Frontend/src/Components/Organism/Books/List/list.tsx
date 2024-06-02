@@ -14,7 +14,7 @@ import {
     TextField,
 } from '@mui/material';
 import useAction from './list.hooks';
-import { ICars } from '../Cars.types';
+import { IBooks } from '../Books.types';
 
 import CommonPage from '../../../Molecule/common-page/common-page';
 import { Link, useNavigate } from 'react-router-dom';
@@ -24,7 +24,7 @@ import { HeaderElementStyled } from './list.styled';
 export default function List() {
     const navigate = useNavigate();
     const {
-        cars,
+        books,
         loading,
         setParams,
         params,
@@ -54,7 +54,7 @@ export default function List() {
         if (loading) {
             return renderLoading();
         }
-        return cars?.map((record: ICars) => (
+        return books?.map((record: IBooks) => (
             <TableRow
                 key={record.id}
                 sx={{
@@ -68,23 +68,16 @@ export default function List() {
                 <TableCell component="th">
                     <Box sx={{ mb: 1 }}>{record.title}</Box>
                     <Box>
-                        <strong>Author:</strong> {record.created_by}
+                        <strong>Author:</strong> {record.author}
                     </Box>
                 </TableCell>
-
-                <TableCell>{record.price}</TableCell>
+                <TableCell>{record.genre}</TableCell>
+                <TableCell>{record.publisher}</TableCell>
+                <TableCell>{record.book_number}</TableCell>
+                <TableCell>{record.publication_date}</TableCell>
                 <TableCell align="right">{record.status}</TableCell>
                 <TableCell>
                     {format(parseISO(`${record.created_at}`), 'dd/MM/yyyy HH:mm:ss')}
-                </TableCell>
-                <TableCell>
-                    <Box>
-                        <img
-                            src={record.picture}
-                            alt="preview"
-                            style={{ width: '100px', height: '100px' }}
-                        />
-                    </Box>
                 </TableCell>
                 <TableCell>
                     <Stack
@@ -119,12 +112,12 @@ export default function List() {
 
     return (
         <CommonPage
-            title="Cars"
+            title="Books"
             actionElement={
                 <HeaderElementStyled>
                     <TextField
                         name="search"
-                        placeholder="Search cars title or author"
+                        placeholder="Search books title or author"
                         onChange={handleSearch}
                         size="small"
                     />
@@ -141,12 +134,14 @@ export default function List() {
                     <TableHead>
                         <TableRow>
                             <TableCell sx={{ fontWeight: 'bold' }}>Title</TableCell>
-                            <TableCell sx={{ fontWeight: 'bold' }}>Price</TableCell>
+                            <TableCell sx={{ fontWeight: 'bold' }}>Genre</TableCell>
+                            <TableCell sx={{ fontWeight: 'bold' }}>Publisher</TableCell>
+                            <TableCell sx={{ fontWeight: 'bold' }}>Book Number</TableCell>
+                            <TableCell sx={{ fontWeight: 'bold' }}>Publication Date</TableCell>
                             <TableCell align="right" sx={{ fontWeight: 'bold' }}>
                                 Status
                             </TableCell>
                             <TableCell sx={{ fontWeight: 'bold' }}>Created At</TableCell>
-                            <TableCell sx={{ fontWeight: 'bold' }}>Image</TableCell>
                             <TableCell sx={{ fontWeight: 'bold' }}></TableCell>
                         </TableRow>
                     </TableHead>

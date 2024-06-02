@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { ChangeEvent, MouseEvent, useEffect, useState } from 'react';
-import { ICars } from '../Cars.types';
-import { IApiResponse, IMeta, IParams } from '../../../../Services/types';
+import { IBooks } from '../Books.types';
+import { IMeta, IParams } from '../../../../Services/types';
 import { useNavigate } from 'react-router-dom';
 
 export default function useList() {
@@ -12,7 +12,7 @@ export default function useList() {
     });
     const [meta, setMeta] = useState<IMeta>();
     const [loading, setLoading] = useState<boolean>(false);
-    const [cars, setCars] = useState<ICars[]>([]);
+    const [books, setBooks] = useState<IBooks[]>([]);
 
     const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
@@ -24,41 +24,41 @@ export default function useList() {
 
     const handleRemove = async (
         e: MouseEvent<HTMLButtonElement>,
-        record: ICars
+        record: IBooks
     ) => {
         e.stopPropagation();
         const confirmed = confirm('Are you sure want to delete?');
         if (confirmed) {
             try {
-                await axios.delete(`http://localhost:4000/api/cars/${record.id}`, {
+                await axios.delete(`http://localhost:4000/api/books/${record.id}`, {
                     headers: {
                         Authorization: localStorage.getItem('token'),
                     },
                 });
-                await fetchCars();
+                await fetchBooks();
             } catch (error) {
                 console.log('error > ', error);
             }
         }
     };
 
-    const handleEdit = (e: MouseEvent<HTMLButtonElement>, record: ICars) => {
+    const handleEdit = (e: MouseEvent<HTMLButtonElement>, record: IBooks) => {
         e.stopPropagation();
         navigate(`/update/${record.id}`);
     };
 
-    const fetchCars = async () => {
+    const fetchBooks = async () => {
         try {
             setLoading(true);
             const response = await axios.get(
-                'http://localhost:4000/api/cars',
+                'http://localhost:4000/api/books',
                 {
                     headers: {
                         Authorization: localStorage.getItem('token'),
                     },
                 }
             );
-            setCars(response.data.data);
+            setBooks(response.data.data);
             setMeta(response.data.meta);
         } catch (error) {
             console.log('error > ', error);
@@ -68,11 +68,11 @@ export default function useList() {
     };
 
     useEffect(() => {
-        fetchCars();
+        fetchBooks();
     }, [params]);
 
     return {
-        cars,
+        books,
         params,
         setParams,
         loading,

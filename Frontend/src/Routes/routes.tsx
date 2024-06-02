@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { CarsList, CarsCreate, CarsUpdate, CarsDetail } from '../Pages/Cars';
+import { BooksList, BooksCreate, BooksUpdate, BooksDetail } from '../Pages/Books';
 
 // import Home from "../Pages/Home";
 import Login from "../Pages/Login";
@@ -9,10 +9,10 @@ function Router() {
         <>
             <BrowserRouter>
                 <Routes>
-                    <Route path="/" element={<CarsList />} />
-                    <Route path="/create" element={<CarsCreate />} />
-                    <Route path="/update/:id" element={<CarsUpdate />} />
-                    <Route path="/detail/:id" element={<CarsDetail />} />
+                    <Route path="/" element={<BooksList />} />
+                    <Route path="/create" element={<BooksCreate />} />
+                    <Route path="/update/:id" element={<BooksUpdate />} />
+                    <Route path="/detail/:id" element={<BooksDetail />} />
                     <Route path="/login" element={<Login />} />
                 </Routes>
             </BrowserRouter>

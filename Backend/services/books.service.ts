@@ -40,10 +40,10 @@ class ServiceBooks {
     }
   }
 
-  async deleteBook(id: string, params: IBooks) {
+  async deleteBook(id: string) {
     try {
-      const data = await booksKnex.deleteBook(id, params); // Knex
-      console.log(id, params);
+      const data = await booksKnex.deleteBook(id); // Knex
+      console.log(id);
       console.log(data);
       return data;
     } catch (error) {

@@ -1,22 +1,15 @@
-import { Box, TextField } from '@mui/material';
+import { Box, TextField, } from '@mui/material';
 import CommonPage from '../../../Molecule/common-page/common-page';
-import { CloudUpload } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
-import useAction from './update.hooks';
-import { VisuallyHiddenInput } from './update.styled';
+import useAction from './create.hooks';
 
 export default function Create() {
     const {
         formValues,
         handleSubmit,
-        handleUploadPicture,
-        loadingPicture,
         loadingSubmit,
         setFormValues,
-        fileItem,
-        data
     } = useAction();
-    console.log(data);
     return (
         <CommonPage
             withBack
@@ -42,6 +35,7 @@ export default function Create() {
                     name="title"
                     size="small"
                     sx={{ width: '100%', mb: 3 }}
+                    label="Title"
                     onChange={(e) =>
                         setFormValues({
                             ...formValues,
@@ -49,81 +43,93 @@ export default function Create() {
                         })
                     }
                     variant="filled"
-                    placeholder={data.title}
                     value={formValues?.title}
                 />
                 <TextField
-                    name="price"
+                    name="genre"
                     size="small"
                     sx={{ width: '100%', mb: 3 }}
+                    label="Genre"
                     onChange={(e) =>
                         setFormValues({
                             ...formValues,
-                            price: e.target.value,
+                            genre: e.target.value,
                         })
                     }
-                    placeholder={data.price}
-                    value={formValues?.price}
                     variant="filled"
+                    value={formValues?.genre}
                 />
                 <TextField
-                    name="available"
+                    name="publisher"
                     size="small"
                     sx={{ width: '100%', mb: 3 }}
+                    label="Publisher"
                     onChange={(e) =>
                         setFormValues({
                             ...formValues,
-                            available: e.target.value === 'true' ? true : false,
+                            publisher: e.target.value,
                         })
                     }
-                    placeholder={data.available ? "true" : "false"}
-                    value={formValues?.available}
                     variant="filled"
+                    value={formValues?.publisher}
+
+                />
+                <TextField
+                    name="author"
+                    size="small"
+                    sx={{ width: '100%', mb: 3 }}
+                    label="Author"
+                    onChange={(e) =>
+                        setFormValues({
+                            ...formValues,
+                            author: e.target.value,
+                        })
+                    }
+                    variant="filled"
+                    value={formValues?.author}
+                />
+                <TextField
+                    name="book_number"
+                    size="small"
+                    sx={{ width: '100%', mb: 3 }}
+                    label="Book Number"
+                    onChange={(e) =>
+                        setFormValues({
+                            ...formValues,
+                            book_number: Number(e.target.value),
+                        })
+                    }
+                    variant="filled"
+                    value={formValues?.book_number}
+                />
+                <TextField
+                    name="publication_date"
+                    size="small"
+                    sx={{ width: '100%', mb: 3 }}
+                    label="Publication Date"
+                    onChange={(e) =>
+                        setFormValues({
+                            ...formValues,
+                            publication_date: e.target.value,
+                        })
+                    }
+                    variant="filled"
+                    value={formValues?.publication_date}
                 />
                 <TextField
                     name="status"
                     size="small"
                     sx={{ width: '100%', mb: 3 }}
-                    type="number"
+                    label="Status"
                     onChange={(e) =>
                         setFormValues({
                             ...formValues,
                             status: e.target.value,
                         })
                     }
-                    placeholder={data.status}
-                    value={formValues?.status}
                     variant="filled"
+                    value={formValues?.status}
                 />
-                <LoadingButton
-                    component="label"
-                    variant="contained"
-                    startIcon={<CloudUpload />}
-                    sx={{ background: 'black' }}
-                    loading={loadingPicture}
-                >
-                    Update Book Picture
-                    <VisuallyHiddenInput
-                        type="file"
-                        accept=".png, .jpg, .jpeg"
-                        onChange={handleUploadPicture}
-                    />
-                </LoadingButton>
-                {(fileItem) ? (fileItem && (
-                    <Box>
-                        <img
-                            src={fileItem}
-                            alt="preview"
-                            style={{ width: '100%', objectFit: 'cover' }}
-                        />
-                    </Box>
-                )) : (data?.cover == null ? null : <Box>
-                    <img
-                        src={data?.cover?.url}
-                        alt="preview"
-                        style={{ width: '100%', objectFit: 'cover' }}
-                    />
-                </Box>)}
             </Box>
         </CommonPage>
     );

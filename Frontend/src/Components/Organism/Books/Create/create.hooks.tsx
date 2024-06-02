@@ -1,11 +1,11 @@
 import axios from 'axios';
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ICars } from '../Cars.types';
+import { IBooks } from '../Books.types';
 
 export default function useCreate() {
     const navigate = useNavigate();
-    const [formValues, setFormValues] = useState<ICars | undefined>();
+    const [formValues, setFormValues] = useState<IBooks | undefined>();
     const [loadingPicture, setLoadingPicture] = useState<boolean>(false);
     const [loadingSubmit, setLoadingSubmit] = useState<boolean>(false);
     const [fileItem, setFileItem] = useState();
@@ -15,7 +15,7 @@ export default function useCreate() {
         try {
             setLoadingSubmit(true);
             const payload = { ...formValues, picture: fileItem };
-            await axios.post('http://localhost:4000/api/cars', payload, {
+            await axios.post('http://localhost:4000/api/books', payload, {
                 headers: {
                     Authorization: localStorage.getItem('token'),
                 },
@@ -37,7 +37,7 @@ export default function useCreate() {
                 formData.append('picture', files[0]);
 
                 const response = await axios.post(
-                    'http://localhost:4000/api/cars/upload',
+                    'http://localhost:4000/api/books/upload',
                     formData,
                     {
                         headers: {

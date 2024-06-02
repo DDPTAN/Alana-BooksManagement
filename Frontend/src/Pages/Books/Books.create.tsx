@@ -1,4 +1,4 @@
-import { CarCreateContainer } from '../../Components/Organism/Cars';
+import { BookCreateContainer } from '../../Components/Organism/Books';
 import Dashboard from '../../Layouts/Dashboard';
 import PrivateProvider from '../Providers/PrivateProvider';
 
@@ -6,7 +6,7 @@ function Create() {
   return (
     <PrivateProvider>
       <Dashboard>
-        <CarCreateContainer />
+        <BookCreateContainer />
       </Dashboard>
     </PrivateProvider>
   );
