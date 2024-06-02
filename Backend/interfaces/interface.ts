@@ -10,6 +10,9 @@ export interface IUser {
   username?: string;
   email?: string;
   password?: string;
+  gender?: string;
+  age?: number;
+  contact?: string;
   role?: string;
   created_at?: string;
   updated_at?: string;
@@ -33,32 +36,31 @@ export interface UserController {
   deleteUser: (req: Request, res: Response) => void;
 }
 
-export interface ICars {
+export interface IBooks {
   id?: string;
-  created_by?: string;
   title?: string;
-  price?: string;
-  picture?: string;
-  available?: boolean;
+  genre?: string;
+  publisher?: string;
+  author?: string;
+  book_number?: number;
+  publication_date?: string;
   status?: string;
-  deleted_by?: string;
-  edited_by?: string;
   created_at?: string;
   updated_at?: string;
 }
 
-export interface CarModel<T> {
-  getCars: () => void;
-  getCar: (id: string) => void;
-  createCar: (params: T) => void;
-  updateCar: (id: string, params: T) => void;
-  deleteCar: (id: string, params: T) => void;
+export interface BookModel<T> {
+  getBooks: () => void;
+  getBook: (id: string) => void;
+  createBook: (params: T) => void;
+  updateBook: (id: string, params: T) => void;
+  deleteBook: (id: string, params: T) => void;
 }
 
-export interface CarController {
-  getCars: (req: Request, res: Response) => void;
-  getCar: (req: Request, res: Response) => void;
-  createCar: (req: Request, res: Response) => void;
-  updateCar: (req: Request, res: Response) => void;
-  deleteCar: (req: Request, res: Response) => void;
+export interface BookController {
+  getBooks: (req: Request, res: Response) => void;
+  getBook: (req: Request, res: Response) => void;
+  createBook: (req: Request, res: Response) => void;
+  updateBook: (req: Request, res: Response) => void;
+  deleteBook: (req: Request, res: Response) => void;
 }

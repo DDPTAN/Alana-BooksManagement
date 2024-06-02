@@ -74,6 +74,9 @@ class ControllerUsers implements UserController {
         username: req.body.username,
         email: req.body.email,
         password: password,
+        gender: req.body.gender,
+        age: req.body.age,
+        contact: req.body.contact,
         role: "member",
       };
       const user = (await ServiceUsers.createUser(params)) as IUser;
@@ -95,6 +98,9 @@ class ControllerUsers implements UserController {
         username: req.body.username,
         email: req.body.email,
         password: password,
+        gender: req.body.gender,
+        age: req.body.age,
+        contact: req.body.contact,
         role: "admin",
       };
       const user = (await ServiceUsers.createUser(params)) as IUser;
@@ -111,11 +117,14 @@ class ControllerUsers implements UserController {
 
   async updateUser(req: Request, res: Response) {
     const id = req.params.id;
+    const password: string = await bcrypt.hash(req.body.password, 10);
     const params: IUser = {
       username: req.body.username,
       email: req.body.email,
-      password: req.body.password,
-      updated_at: new Date().toISOString(),
+      password: password,
+      gender: req.body.gender,
+      age: req.body.age,
+      contact: req.body.contact,
     };
     try {
       const user = (await ServiceUsers.updateUser(id, params)) as IUser;

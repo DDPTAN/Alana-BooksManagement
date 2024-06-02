@@ -1,34 +1,34 @@
 import { Request, Response } from "express";
 
-import ServiceCars from "../services/cars.service";
+import ServiceBooks from "../services/books.service";
 import Media from "../config/media";
-import { ICars, CarController } from "../interfaces/interface";
+import { IBooks, BookController } from "../interfaces/interface";
 
 interface AuthenticatedRequest extends Request {
   user?: any; // Adjust the type according to your decoded user type
 }
 
-class ControllerCars implements CarController {
+class ControllerBooks implements BookController {
   constructor() { }
 
-  async getCars(req: Request, res: Response) {
+  async getBooks(req: Request, res: Response) {
     try {
       const query = req.query as any;
-      const cars = (await ServiceCars.getCars(query)) as any;
-      const totalPages = Math.floor(cars.total / Number(query?.size ?? 10)) + 1;
+      const books = (await ServiceBooks.getBooks(query)) as any;
+      const totalPages = Math.floor(books.total / Number(query?.size ?? 10)) + 1;
 
-      if (cars.length === 0) {
+      if (books.length === 0) {
         res.status(404).json({
           message: "Data Not Found!",
         });
       } else {
         res.status(200).json({
           message: "Success Get Data!",
-          data: cars,
+          data: books,
           meta: {
             page: query?.page ? Number(query?.page) : 1,
             size: query?.size ? Number(query?.size) : 10,
-            totalData: cars.total,
+            totalData: books.total,
             totalPages,
           },
         });
@@ -40,19 +40,19 @@ class ControllerCars implements CarController {
     }
   }
 
-  async getCar(req: Request, res: Response) {
+  async getBook(req: Request, res: Response) {
     const id = req.params.id;
     try {
-      const car = (await ServiceCars.getCar(id)) as ICars[];
+      const book = (await ServiceBooks.getBook(id)) as IBooks[];
 
-      if (car.length === 0) {
+      if (book.length === 0) {
         res.status(404).json({
           message: "Data Not Found!",
         });
       } else {
         res.status(200).json({
           message: "Success Get Data!",
-          data: car,
+          data: book,
         });
       }
     } catch (error) {
@@ -62,24 +62,23 @@ class ControllerCars implements CarController {
     }
   }
 
-  async createCar(req: Request, res: Response) {
+  async createBook(req: Request, res: Response) {
     try {
-      const params: ICars = {
-        created_by: (req as AuthenticatedRequest).user.username,
+      const params: IBooks = {
         title: req.body.title,
-        price: req.body.price,
-        picture: req.body.picture,
-        available: req.body.available,
+        genre: req.body.genre,
+        publisher: req.body.publisher,
+        author: req.body.author,
+        book_number: req.body.book_number,
+        publication_date: req.body.publication_date,
         status: req.body.status,
-        deleted_by: "",
-        edited_by: "",
       };
 
-      const car = (await ServiceCars.createCar(params)) as ICars;
+      const book = (await ServiceBooks.createBook(params)) as IBooks;
 
       res.status(200).json({
         message: "Success Create Data!",
-        data: car,
+        data: book,
       });
     } catch (error) {
       res.status(500).json({
@@ -88,24 +87,25 @@ class ControllerCars implements CarController {
     }
   }
 
-  async updateCar(req: Request, res: Response) {
+  async updateBook(req: Request, res: Response) {
     const { id } = req.params;
 
     try {
-      const params: ICars = {
+      const params: IBooks = {
         title: req.body.title,
-        price: req.body.price,
-        picture: req.body.picture,
-        available: req.body.available,
-        edited_by: (req as AuthenticatedRequest).user.username,
-        updated_at: new Date().toISOString(),
+        genre: req.body.genre,
+        publisher: req.body.publisher,
+        author: req.body.author,
+        book_number: req.body.book_number,
+        publication_date: req.body.publication_date,
+        status: req.body.status,
       };
 
-      const car = (await ServiceCars.updateCar(id, params)) as ICars;
+      const book = (await ServiceBooks.updateBook(id, params)) as IBooks;
 
       res.status(200).json({
         message: "Success Update Data!",
-        data: car,
+        data: book,
       });
     } catch (error) {
       res.status(500).json({
@@ -114,16 +114,13 @@ class ControllerCars implements CarController {
     }
   }
 
-  async deleteCar(req: Request, res: Response) {
+  async deleteBook(req: Request, res: Response) {
     const { id } = req.params;
-    const params: ICars = {
-      available: false,
+    const params: IBooks = {
       status: "deleted",
-      deleted_by: (req as AuthenticatedRequest).user.username,
-      updated_at: new Date().toISOString()
     };
     try {
-      const car = (await ServiceCars.deleteCar(id, params).then((data) => {
+      const book = (await ServiceBooks.deleteBook(id, params).then((data) => {
         if (data) {
           res.status(200).json({
             message: "Success Delete Data!",
@@ -134,7 +131,7 @@ class ControllerCars implements CarController {
             message: "Data Not Found!",
           });
         }
-      })) as ICars;
+      })) as IBooks;
     } catch (error) {
       res.status(500).json({
         message: (error as Error).message,
@@ -167,4 +164,4 @@ class ControllerCars implements CarController {
   }
 }
 
-export default new ControllerCars();
+export default new ControllerBooks();
